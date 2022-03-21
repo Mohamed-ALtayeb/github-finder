@@ -15,7 +15,7 @@ export const searchUsers = async (text) => {
     q: text,
   });
 
-  const response = await github(`/search/users?${params}`);
+  const response = await axios(`https://api.github.com/search/users?${params}`);
   return await response.data.items;
 };
 
@@ -23,8 +23,8 @@ export const searchUsers = async (text) => {
 
 export const getUserAndRepos = async (login) => {
   const [user, repos] = await Promise.all([
-    github.get(`/users/${login}`),
-    github.get(`/users/${login}/repos`),
+    axios.get(`https://api.github.com/users/${login}`),
+    axios.get(`https://api.github.com/users/${login}/repos`),
   ]);
   return { user: user.data, repos: repos.data };
 };
